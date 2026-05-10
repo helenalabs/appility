@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TOOL by APPility</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="app">
+
+  <!-- NAVIGATION -->
+  <nav class="nav">
+    <div class="wordmark" onclick="guardedNav('stage')">
+      <span class="wordmark-tool">TOOL</span>
+      <span class="wordmark-by">by</span>
+      <span class="wordmark-appility">APPI<em>lity</em></span>
+    </div>
+    <div class="nav-links">
+      <span class="nav-link" id="nav-bib"    onclick="guardedNav('bibliothek')" data-i18n="nav_library">Library</span>
+      <span class="nav-link" id="nav-editor" onclick="guardedNav('editor')" data-i18n="nav_editor">Editor</span>
+      <span class="nav-link" id="nav-stage"  onclick="guardedNav('stage')">TOOL</span>
+      <span class="lang-toggle">
+        <span class="lang-opt" id="lang-en" onclick="setLang('en')">EN</span>
+        <span class="lang-sep">·</span>
+        <span class="lang-opt" id="lang-de" onclick="setLang('de')">DE</span>
+      </span>
+    </div>
+  </nav>
+
+  <!-- TOOL — STAGE -->
+  <div class="page" id="page-stage">
+    <!-- Feedback: dot + revealed correct word, above card -->
+    <div class="above-card-row">
+      <div class="reveal-left" id="reveal-left"></div>
+      <div class="feedback-dot" id="feedback-dot"></div>
+      <div class="reveal-word" id="reveal-word"></div>
+    </div>
+    <div class="flash-card">
+      <div class="flash-word" id="flash-word">Bereit?</div>
+    </div>
+    <div class="input-row">
+      <input class="word-input" id="word-input" type="text"
+        placeholder="Type the word…" data-i18n-placeholder="input_placeholder" autocomplete="off" autocorrect="off"
+        spellcheck="false" onkeydown="handleKey(event)" disabled />
+    </div>
+    <!-- Bottom section: start button + timing/list name on same level -->
+    <div class="stage-bottom">
+      <div class="bottom-row">
+        <div class="timing-row">
+          <span class="timing-label" data-i18n="timing_label">Timing</span>
+          <div class="timing-dots" id="timing-dots"></div>
+          <span class="timing-value" id="timing-val">0.25s</span>
+        </div>
+        <div class="stage-list-name" id="tool-list-name">—</div>
+      </div>
+      <button class="start-btn" id="start-btn" onclick="handleStartBtn()" data-i18n="btn_start">Start</button>
+    </div>
+    <div class="progress-row" id="progress-row" style="display:none;">
+      <span class="progress-text" id="progress-text"></span>
+      <span class="pause-hint" id="pause-hint" data-i18n="pause_hint">ESC = Pause</span>
+    </div>
+    <div id="no-list-hint" class="no-list-msg" data-i18n="no_list_hint">
+      Load a list from the Library or create your own in the Editor.<br/>Adjust the timing.
+    </div>
+  </div>
+
+  <!-- BIBLIOTHEK -->
+  <div class="page" id="page-bibliothek">
+    <div class="bib-layout">
+
+      <!-- TOP: 3 content columns -->
+      <div class="bib-columns">
+
+        <!-- COL 1: Programm -->
+        <div class="bib-col" id="bib-col-programm">
+          <div class="bib-col-header" data-i18n="bib_program">Program</div>
+          <div class="bib-col-body" id="bib-col-groups"></div>
+        </div>
+
+        <!-- COL 2: Listen -->
+        <div class="bib-col" id="bib-col-listen">
+          <div class="bib-col-header" data-i18n="bib_lists">Lists</div>
+          <div class="bib-col-body" id="bib-col-sublists">
+            <div class="bib-placeholder" data-i18n="bib_pick_program">← Select a program</div>
+          </div>
+        </div>
+
+        <!-- COL 3: Vorschau -->
+        <div class="bib-col bib-col-preview" id="bib-col-vorschau">
+          <div class="bib-col-header" id="bib-preview-label" data-i18n="bib_preview">Preview</div>
+          <div class="bib-col-body bib-preview-body" id="bib-col-preview">
+            <div class="bib-placeholder" data-i18n="bib_pick_list">← Select a list</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- BOTTOM: Auswahl / Slot-System -->
+      <div class="bib-selection-bar">
+
+        <div class="bib-selection-left">
+          <div class="bib-selection-label" data-i18n="bib_selection">Selection</div>
+          <div class="bib-slots" id="bib-slots-container">
+            <div class="bib-slot empty" id="bib-slot-0"><span class="bib-slot-num">1</span></div>
+            <div class="bib-slot empty" id="bib-slot-1"><span class="bib-slot-num">2</span></div>
+            <div class="bib-slot empty" id="bib-slot-2"><span class="bib-slot-num">3</span></div>
+            <div class="bib-slot empty" id="bib-slot-3"><span class="bib-slot-num">4</span></div>
+            <div class="bib-slot empty" id="bib-slot-4"><span class="bib-slot-num">5</span></div>
+          </div>
+          <div class="bib-sel-hint" id="bib-sel-hint" data-i18n="bib_sel_hint">min. 1 · max. 5 lists</div>
+        </div>
+
+        <button class="shuffle-toggle" onclick="toggleShuffle()">↓ Order</button>
+        <button class="bib-play-btn" id="bib-play-btn" onclick="playSelected()" disabled data-i18n="btn_play">
+          ▶ Play
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- EDITOR -->
+  <div class="page" id="page-editor">
+    <div class="list-name-row">
+      <input class="list-name-input" id="list-name" data-i18n-placeholder="editor_list_name_placeholder" placeholder="List name…" value="My List"/>
+    </div>
+    <div class="editor-grid" id="editor-grid"></div>
+    <div class="editor-actions">
+      <div class="editor-action-group">
+        <span class="editor-action-label" data-i18n="editor_save_browser">SAVE IN BROWSER</span>
+        <div class="editor-action-row">
+          <button class="editor-btn" onclick="saveList()" data-i18n="btn_save_app">Save to app</button>
+          <button class="editor-btn" onclick="loadList()" data-i18n="btn_load_app">Load from app</button>
+        </div>
+      </div>
+      <div class="editor-action-divider"></div>
+      <div class="editor-action-group">
+        <span class="editor-action-label" data-i18n="editor_save_device">SAVE TO DEVICE</span>
+        <div class="editor-action-row">
+          <button class="editor-btn" onclick="exportListToFile()" data-i18n="btn_download">Download</button>
+          <button class="editor-btn" onclick="importFromFile()" data-i18n="btn_upload">Upload</button>
+        </div>
+      </div>
+      <div class="editor-action-divider"></div>
+      <button class="editor-btn reset-btn" onclick="resetEditor()" data-i18n="btn_clear">↺ Clear</button>
+      <div class="editor-action-divider"></div>
+      <button class="shuffle-toggle editor-shuffle" onclick="toggleShuffle()">↓ Order</button>
+      <button class="editor-btn primary" onclick="playEditor()" data-i18n="btn_play">▶ Play</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- PAUSE OVERLAY -->
+<div id="pause-overlay" class="pause-overlay" style="display:none;">
+  <div class="pause-box">
+    <div class="pause-title" data-i18n="pause_title">Game paused</div>
+    <div class="pause-sub" id="pause-sub" data-i18n="pause_sub">Press Enter to continue</div>
+    <div class="pause-actions">
+      <button class="start-btn" onclick="resumeSession()" data-i18n="btn_resume">Resume</button>
+      <button class="pause-abort-btn" onclick="abortSession()" data-i18n="btn_abort">Abort</button>
+    </div>
+  </div>
+</div>
+
+<!-- FERTIG SCREEN -->
+<div id="finish-overlay" class="finish-overlay" style="display:none;">
+  <div class="finish-box">
+    <div class="finish-title" data-i18n="finish_title">Well Done!</div>
+    <div class="finish-sub" id="finish-sub"></div>
+    <div class="finish-perfect" id="finish-perfect" data-i18n="finish_perfect" style="display:none;">Perfect round!</div>
+    <div class="finish-actions">
+      <button class="start-btn" id="finish-next-btn" onclick="nextList()" style="display:none;" data-i18n="btn_next_list">Next List ›</button>
+      <button class="editor-btn" id="finish-again-btn" onclick="replayList()" data-i18n="btn_again">Again</button>
+      <button class="editor-btn" onclick="goToBibliothek()" data-i18n="nav_library">Library</button>
+    </div>
+    <div class="finish-hint" id="finish-hint"></div>
+  </div>
+</div>
+
+<input type="file" id="file-input" accept=".json" style="display:none" onchange="onFileLoad(event)" />
+<input type="file" id="file-input-import" accept=".json" style="display:none" onchange="onFileImport(event)" />
+<script src="script.js"></script>
+</body>
+</html>
