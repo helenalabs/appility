@@ -1,8 +1,9 @@
 TOOL by APPility
-Your brain already knows how to learn. TOOL gets it.
+Your brain already knows how to learn. 
+
+🔗 appility.netlify.app
 
 Flash-based word training using the tachistoscope method — words appear for fractions of a second, bypassing conscious processing and building direct recognition.
-🔗 appility.netlify.app
 
 How it works
 A word flashes. You type it. That's it.
