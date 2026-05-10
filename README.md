@@ -25,4 +25,4 @@ One page. Three files. Runs in any modern browser.
 
 License
 MIT — open to use, fork, and build upon.
-Made by Helena Lewandowski · Mainz, Germany
+Made by Helena Lewandowski · Mainz, Germany · apphelena@pm.me
