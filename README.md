@@ -1,29 +1,26 @@
 TOOL by APPility
-Flash word trainer — tachistoscope method.  
-Train your vocabulary by recognizing words in fractions of a second.
-🔗 Live: appility.netlify.app
----
-What it does
-TOOL flashes a word on screen for a split second. You type it. You train your brain to recognize words faster and faster.
-5 speed levels — from 1 second down to 0.05 seconds
-Order or Shuffle — train in sequence or random order
-Auto speed-up — perfect round? The app challenges you to go faster
-Retry system — wrong words come back until you get them right
-No login. No signup. Works instantly in any browser.
----
-Word lists included
-Deutsch 1000 — 10 programs × 5 lists × 20 words (everyday German)
-Deutsch Master 1000 — advanced vocabulary for fluent speakers
-Desteni — motivational and self-development word sets
----
-Editor
-Create your own word lists directly in the app.  
-Save them in the browser, download as JSON, or upload from a file.
----
-Tech
-Single-page app — no framework, no server, no dependencies.  
-Pure HTML, CSS, JavaScript.
----
+Your brain already knows how to learn. TOOL lets it.
+Flash-based word training using the tachistoscope method — words appear for fractions of a second, bypassing conscious processing and building direct recognition.
+🔗 appility.netlify.app
+
+How it works
+A word flashes. You type it. That's it.
+No multiple choice. No explanations. No repetition drills.
+The faster the flash, the deeper the imprint.
+Start slow. Go faster. Let your brain do the rest.
+
+Usage
+Requires a keyboard — this is a typing-based training tool
+Optimized for laptop and desktop — not designed for mobile
+No account needed — open the link and start immediately
+Choose a word list from the Library or create your own in the Editor
+Set your timing — from 1 second down to 0.05 seconds
+Press Enter to begin
+
+Built with
+Pure HTML, CSS, JavaScript — no framework, no server, no tracking.
+One page. Three files. Runs in any modern browser.
+
 License
-MIT — free to use, fork, and build your own thing.  
+MIT — open to use, fork, and build upon.
 Made by Helena Lewandowski · Mainz, Germany
