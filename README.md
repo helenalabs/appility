@@ -1,4 +1,4 @@
-TOOL by APPility
+TOOL by APPIlity
 Your brain already knows how to learn. 
 
 🔗 appility.netlify.app
